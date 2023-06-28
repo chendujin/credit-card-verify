@@ -11,11 +11,12 @@ Install via composer
 ```
 composer require chendujin/credit-card-verify
 ```
-Add Service Provider to `config/app.php` in `providers` section
-```php
-Chendujin\CreditCardVerify\ServiceProvider::class,
-```
+#### Lumen
+Register Service Provider `bootstrap/app.php`
 
+```shell script
+$app->register(Chendujin\CreditCardVerify\ServiceProvider::class);
+```
 ## Usage
 
 Add this to your validation rules:
