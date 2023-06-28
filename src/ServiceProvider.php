@@ -2,7 +2,7 @@
 namespace Chendujin\CreditCardVerify;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
-use Inacho\CreditCard;
+use Chendujin\CreditCardVerify\CreditCard;
 
 class ServiceProvider extends LaravelServiceProvider
 {
