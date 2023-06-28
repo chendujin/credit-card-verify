@@ -1,8 +1,5 @@
-vendor/
-node_modules/
-
-# Laravel 5 & Lumen specific
-bootstrap/cache/
-storage/
-.env
-.env.example
+/.idea/
+/vendor/
+/composer.lock
+/.php_cs.cache
+.phpunit.result.cache

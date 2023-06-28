@@ -1,10 +1,10 @@
 <?php
-namespace Rap2hpoutre\LaravelCreditCardValidator;
+namespace Chendujin\CreditCardVerify;
 
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Inacho\CreditCard;
 
-class ServiceProvider extends BaseServiceProvider
+class ServiceProvider extends LaravelServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -13,11 +13,15 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot()
     {
-        \Validator::extend('ccn', function($attribute, $value, $parameters, $validator) {
+        $validator = $this->app['validator'];
+
+        // verify ccn
+        $validator->extend('ccn', function ($attribute, $value, $paramters, $validator) {
             return CreditCard::validCreditCard($value)['valid'];
         });
 
-        \Validator::extend('ccd', function($attribute, $value, $parameters, $validator) {
+        // verify ccd
+        $validator->extend('ccd', function ($attribute, $value, $paramters, $validator) {
             try {
                 $value = explode('/', $value);
                 return CreditCard::validDate(strlen($value[1]) == 2 ? (2000+$value[1]) : $value[1], $value[0]);
@@ -26,18 +30,9 @@ class ServiceProvider extends BaseServiceProvider
             }
         });
 
-        \Validator::extend('cvc', function($attribute, $value, $parameters, $validator) {
+        // verify cvc
+        $validator->extend('cvc', function ($attribute, $value, $paramters, $validator) {
             return ctype_digit($value) && (strlen($value) == 3 || strlen($value) == 4);
         });
-    }
-    
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        // 
     }
 }
